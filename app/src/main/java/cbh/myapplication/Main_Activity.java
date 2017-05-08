@@ -22,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -82,19 +83,34 @@ public class Main_Activity extends Activity {
                 TextView tv = (TextView) loading_window.findViewById(R.id.id_changing_language);
                 tv.setText( languages[last_selected_position]);
                 loading_ImageView = (ImageView) loading_window.findViewById(R.id.id_loading_icon);
+                /* Another way to set up an animation without xml file
+
+                   Animation rotate_anim = new RotateAnimation(0,360,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                   rotate_anim.setRepeatCount( -1);
+                   rotate_anim.setDuration( 500);
+                   rotate_anim.setInterpolator( new AccelerateDecelerateInterpolator());
+                   rotate_anim.setStartOffset( -1);
+                   rotate_anim.setAnimationListener(new Animation.AnimationListener() {
+                       @Override
+                       public void onAnimationStart(Animation animation) {
+
+                       }
+
+                       @Override                        public void onAnimationEnd(Animation animation) {
+                           if( alertDialog.isShowing()){
+                               loading_ImageView.startAnimation( animation);
+                           }
+                       }
+
+                       @Override
+                       public void onAnimationRepeat(Animation animation) {
+
+                       }
+                   });
+                 */
                 Animation rotate_anim = AnimationUtils
                         .loadAnimation( context, R.anim.loading_id_rotate);
                 //load the pre-set animation
-                rotate_anim.setInterpolator( new DecelerateInterpolator());
-                        /* set the rate of rotate's change
-                         * Linear means with same speed
-                         * Accelerate and Decelerate keep two side of it
-                         */
-
-                rotate_anim.setDuration( 500);
-                rotate_anim.setRepeatCount( -1);
-                // -1 means run without stop
-                rotate_anim.setStartOffset( -1);
                 rotate_anim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
